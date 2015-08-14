@@ -1,6 +1,6 @@
 module.exports = {
   javierbyte: require('./players/javierbyte.js'),
-  codingpains: require('./players/codingpains.js'),
+  codingpains2: require('./players/codingpains2.js'),
   // manuelmhtr: require('./players/manuelmhtr.js'),
   // ericku: require('./players/ericku.js'),
   hitler: require('./players/hitler.js'),
