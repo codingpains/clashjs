@@ -148,49 +148,32 @@ var hunter = function(player, enemies, map) {
   var chaseMove;
   var safestMove;
 
-  codingpains.info.name = "CodingPains ᕙ( ︡'︡益'︠)ง";
+  codingpains.info.name = "Gus 2 ᕙ( ︡'︡益'︠)ง";
   if (utils.canKill(player, enemies)) return 'shoot';
 
   turnMove = turnToKill(player, enemies);
-  if (turnMove && isMovementSafe(turnMove, player, enemies, map)) {
-    return turnMove;
-  }
+  if (turnMove && isMovementSafe(turnMove, player, enemies, map)) return turnMove;
 
   chaseMove = chaseEnemy(player, enemies);
-  if (chaseMove && isMovementSafe(chaseMove, player, enemies, map)) {
-    return chaseMove;
-  }
-
-  ammoMove = shouldMoveForAmmo(player, map);
-  if (ammoMove && isMovementSafe(ammoMove, player, enemies, map)) {
-    return ammoMove;
-  }
+  if (chaseMove && isMovementSafe(chaseMove, player, enemies, map)) return chaseMove;
 
   safestMove = getSafestMove(player, enemies, map);
-  if (safestMove) {
-    console.log('Recurring to safest move ');
-    return safestMove;
-  }
+  if (safestMove) return safestMove;
 
-  console.log('Not even a safe move, do random');
   return utils.safeRandomMove();
 };
 
 var gatherer = function(player, enemies, map) {
   var ammoMove;
   var safestMove;
-  codingpains.info.name = 'CodingPains ᕕ( ᐛ )ᕗ';
+  codingpains.info.name = 'Gus 2 ᕕ( ᐛ )ᕗ';
   ammoMove = shouldMoveForAmmo(player, map);
-  if (ammoMove && isMovementSafe(ammoMove, player, enemies, map)) {
-    return ammoMove;
-  }
+
+  if (ammoMove && isMovementSafe(ammoMove, player, enemies, map)) return ammoMove;
 
   safestMove = getSafestMove(player, enemies, map);
-  if (safestMove) {
-    console.log('Recurring to safest move ');
-    return safestMove;
-  }
-  console.log('Not even a safe move, do random');
+  if (safestMove) return safestMove;
+
   return utils.safeRandomMove();
 };
 
@@ -202,9 +185,7 @@ var codingpains = {
     style: 0
   },
   ai: function(player, enemies, map) {
-    codingpains.info.name = 'CodingPains ' + (kills || '');
     if (player.ammo) return hunter(player, enemies, map);
-
     return gatherer(player, enemies, map);
   }
 };
