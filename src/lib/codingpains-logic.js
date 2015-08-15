@@ -251,6 +251,12 @@ var getImmediateThreats = function(player, enemies) {
   return enemies.filter((enemy) => enemy.ammo > 0 && utils.isVisible(enemy.position, player.position, enemy.direction));
 };
 
+var getDangerousEnemies = function(enemies) {
+  var dangerous = enemies.filter((enemy) => enemy.ammo);
+  if (dangerous.length) return dangerous;
+  return enemies;
+};
+
 module.exports = {
   canDie,
   getClosestAmmo,
@@ -268,5 +274,6 @@ module.exports = {
   chaseEnemy,
   turnToKill,
   canKillAll,
-  getImmediateThreats
+  getImmediateThreats,
+  getDangerousEnemies
 };
