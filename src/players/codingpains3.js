@@ -124,7 +124,7 @@ var chaseEnemy = function(player, enemies) {
 };
 
 var turnToKill = function(player, enemies) {
-  var turn = false;
+  var turn = player.direction === 'north' ? 'south' : 'north';
   var mockState = JSON.parse(JSON.stringify(player));
 
   enemies = enemies.filter(function(enemy) {
@@ -145,28 +145,24 @@ var turnToKill = function(player, enemies) {
 var hunter = function(player, enemies, map) {
   var turnMove;
   var ammoMove;
-  var chaseMove;
   var safestMove;
 
-  codingpains.info.name = "Gus 2";
+  codingpains.info.name = "Gus 3";
   if (utils.canKill(player, enemies)) return 'shoot';
 
   turnMove = turnToKill(player, enemies);
   if (turnMove && isMovementSafe(turnMove, player, enemies, map)) return turnMove;
 
-  chaseMove = chaseEnemy(player, enemies);
-  if (chaseMove && isMovementSafe(chaseMove, player, enemies, map)) return chaseMove;
-
   safestMove = getSafestMove(player, enemies, map);
   if (safestMove) return safestMove;
 
-  return utils.safeRandomMove();
+  return 'stay';
 };
 
 var gatherer = function(player, enemies, map) {
   var ammoMove;
   var safestMove;
-  codingpains.info.name = 'Gus 2';
+  codingpains.info.name = 'Gus 3';
 
   ammoMove = shouldMoveForAmmo(player, map);
   if (ammoMove && isMovementSafe(ammoMove, player, enemies, map)) return ammoMove;

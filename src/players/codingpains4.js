@@ -112,9 +112,30 @@ var getClosestEnemy = function(player, enemies) {
   return closest;
 };
 
+var getBackPosition = function(enemy) {
+  var back = enemy.position.slice(0, 2);
+  switch (enemy.direction) {
+    case 'north':
+      back[0]++;
+      break;
+    case 'south':
+      back[0]--;
+      break;
+    case 'west':
+      back[1]++;
+      break;
+    case 'east':
+      back[1]--;
+      break;
+  }
+
+  return back;
+};
+
 var chaseEnemy = function(player, enemies) {
   var closestEnemy = getClosestEnemy(player, enemies);
-  var direction = utils.fastGetDirection(player.position, closestEnemy.position);
+  var back = getBackPosition(closestEnemy);
+  var direction = utils.fastGetDirection(player.position, back);
 
   if (direction !== player.direction) {
     return direction;
@@ -148,7 +169,7 @@ var hunter = function(player, enemies, map) {
   var chaseMove;
   var safestMove;
 
-  codingpains.info.name = "Gus 2";
+  codingpains.info.name = "Gus 4";
   if (utils.canKill(player, enemies)) return 'shoot';
 
   turnMove = turnToKill(player, enemies);
@@ -166,7 +187,7 @@ var hunter = function(player, enemies, map) {
 var gatherer = function(player, enemies, map) {
   var ammoMove;
   var safestMove;
-  codingpains.info.name = 'Gus 2';
+  codingpains.info.name = 'Gus 4';
 
   ammoMove = shouldMoveForAmmo(player, map);
   if (ammoMove && isMovementSafe(ammoMove, player, enemies, map)) return ammoMove;
