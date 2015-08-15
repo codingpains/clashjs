@@ -62,16 +62,11 @@ var canKill = (currentPlayerState, enemiesStates) => {
   });
 };
 
-var getImmediateThreats = (player, enemies) => {
-  return enemies.filter((enemy) => enemy.isAlive && enemy.ammo > 0 && isVisible(enemy.position, player.position, enemy.direction));
-};
-
 module.exports = {
   randomMove,
   getDirection,
   isVisible,
   canKill,
-  getImmediateThreats,
   safeRandomMove,
   fastGetDirection,
   turn,
