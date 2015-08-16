@@ -26,7 +26,7 @@ var Clash = React.createClass({
     return {
       clashjs: this.ClashJS.getState(),
       shoots: [],
-      speed: 25,
+      speed: 50,
       winners: playerArray.map(() => 0),
       rates: playerArray.map(() => 0)
     };
