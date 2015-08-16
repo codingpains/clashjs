@@ -3,7 +3,7 @@ var logic = require('./../lib/codingpains-logic');
 
 var codingpains = {
   info: {
-    name: 'Codingpains',
+    name: 'Gus 7',
     style: 0
   },
 
@@ -18,7 +18,7 @@ var codingpains = {
     var safestMove;
     var centerMove;
 
-    codingpains.info.name = 'Gus 7 - gather';
+    // codingpains.info.name = 'Gus 7 - gather';
     if (!map.ammoPosition.length) {
       centerMove = logic.goToCenter(player, map);
       if (logic.isMovementSafe(centerMove, player, enemies, map)) return centerMove;
@@ -44,8 +44,11 @@ var codingpains = {
 
     enemies = logic.getDangerousEnemies(enemies);
 
-    codingpains.info.name = "Gus 7 - hunt";
+    // codingpains.info.name = "Gus 7 - hunt";
     if (utils.canKill(player, enemies)) return 'shoot';
+
+    turnMove = logic.turnToAmbush(player, enemies);
+    if (turnMove) return turnMove;
 
     turnMove = logic.turnToKill(player, enemies);
     if (turnMove && logic.isMovementSafe(turnMove, player, enemies, map)) return turnMove;
@@ -60,7 +63,7 @@ var codingpains = {
   },
 
   _eluder : function(player, enemies, map) {
-    codingpains.info.name = "Gus 7 - eluder";
+    // codingpains.info.name = "Gus 7 - eluder";
     var killers = logic.getImmediateThreats(player, enemies);
 
     if (logic.canKillAll(player, killers)) {

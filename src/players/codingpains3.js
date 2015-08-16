@@ -53,7 +53,6 @@ var isMovementSafe = function(action, player, enemies, map) {
         }
         break;
       case DIRECTIONS[1]:
-        console.log(map.gridSize);
         if (futureState.position[1] < map.gridSize[1]) {
           futureState.position[1]++;
         }
@@ -70,7 +69,6 @@ var isMovementSafe = function(action, player, enemies, map) {
   }
 
   if (canDie(futureState, enemies)) {
-    console.error("So fucking unsafe!");
     return false;
   }
   return true;
@@ -147,7 +145,6 @@ var hunter = function(player, enemies, map) {
   var ammoMove;
   var safestMove;
 
-  codingpains.info.name = "Gus 3";
   if (utils.canKill(player, enemies)) return 'shoot';
 
   turnMove = turnToKill(player, enemies);
@@ -162,7 +159,6 @@ var hunter = function(player, enemies, map) {
 var gatherer = function(player, enemies, map) {
   var ammoMove;
   var safestMove;
-  codingpains.info.name = 'Gus 3';
 
   ammoMove = shouldMoveForAmmo(player, map);
   if (ammoMove && isMovementSafe(ammoMove, player, enemies, map)) return ammoMove;
@@ -177,8 +173,8 @@ var kills = 0;
 
 var codingpains = {
   info: {
-    name: 'Codingpains',
-    style: 0
+    name: 'Old3',
+    style: 2
   },
   ai: function(player, enemies, map) {
     if (player.ammo) return hunter(player, enemies, map);

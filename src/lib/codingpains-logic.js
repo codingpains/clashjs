@@ -169,11 +169,19 @@ var sneakyGetDirection = function(player, enemy) {
 };
 
 var verticalDelta = function(start, end) {
-  return Math.abs(start[0]-end[0]);
+  return start[0] - end[0];
+}
+
+var absVerticalDelta = function(start, end) {
+  return Math.abs(verticalDelta(start, end));
 };
 
 var horizontalDelta = function(start, end) {
-  return Math.abs(start[1]-end[1]);
+  return start[1] - end[1];
+};
+
+var absHorizontalDelta = function(start, end) {
+  return Math.abs(horizontalDelta(start, end));
 };
 
 var isVertical = function(direction) {
@@ -213,8 +221,8 @@ var chaseEnemy = function(player, enemies, map) {
   }
 
   if (!isMovementSafe('move', player, [closest], map)) {
-    if (isVertical(player.direction) && horizontalDelta(player.position, closest.position) === 1) return 'hold';
-    if (isHorizontal(player.direction) && verticalDelta(player.position, closest.position) === 1) return 'hold';
+    if (isVertical(player.direction) && absHorizontalDelta(player.position, closest.position) === 1) return 'hold';
+    if (isHorizontal(player.direction) && absVerticalDelta(player.position, closest.position) === 1) return 'hold';
     return opositeDirection(closest.direction);
   }
 
@@ -225,10 +233,6 @@ var turnToKill = function(player, enemies) {
   var turn = false;
   var mockState = JSON.parse(JSON.stringify(player));
 
-  enemies = enemies.filter(function(enemy) {
-    return enemy.isAlive;
-  });
-
   DIRECTIONS.forEach(function(direction) {
     mockState.direction = direction;
 
@@ -238,6 +242,38 @@ var turnToKill = function(player, enemies) {
   });
 
   return turn;
+};
+
+var turnToAmbush = function(player, enemies) {
+  var killables = enemies.filter(function(enemy) {
+    switch (enemy.direction) {
+      case 'north':
+        return verticalDelta(player.position, enemy.position) === -1;
+        break;
+      case 'east':
+        return verticalDelta(player.position, enemy.position) === 1;
+        break;
+      case 'south':
+        return verticalDelta(player.position, enemy.position) === 1;
+        break;
+      case 'west':
+        return verticalDelta(player.position, enemy.position) === -1;
+        break;
+      default:
+        return false;
+    }
+  });
+  var enemy;
+
+  if (!killables.length) return;
+  enemy = killables[0];
+  if (isVertical(enemy.direction)) {
+    if (horizontalDelta(player.position, enemy.position) < 0) return 'east';
+    return 'west';
+  }
+
+  if (verticalDelta(player.position, enemy.position) < 0) return 'south';
+    return 'north';
 };
 
 var canKillAll = function(player, enemies) {
@@ -268,11 +304,12 @@ module.exports = {
   getClosestEnemy,
   getBackPosition,
   sneakyGetDirection,
-  verticalDelta,
-  horizontalDelta,
+  absVerticalDelta,
+  absHorizontalDelta,
   opositeDirection,
   chaseEnemy,
   turnToKill,
+  turnToAmbush,
   canKillAll,
   getImmediateThreats,
   getDangerousEnemies
