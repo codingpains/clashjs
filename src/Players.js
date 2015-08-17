@@ -1,4 +1,8 @@
 module.exports = {
+  manuelmhtr: require('./players/manuelmhtr.js'),
+  eriku: require('./players/ericku.js'),
+  javierbyte: require('./players/javierbyte.js'),
+  codingpains1: require('./players/codingpains1.js'),
   codingpains2: require('./players/codingpains2.js'),
   codingpains3: require('./players/codingpains3.js'),
   codingpains: require('./players/codingpains7.js'),
