@@ -174,7 +174,7 @@ var kills = 0;
 var codingpains = {
   info: {
     name: 'Old3',
-    style: 2
+    style: 7
   },
   ai: function(player, enemies, map) {
     if (player.ammo) return hunter(player, enemies, map);
