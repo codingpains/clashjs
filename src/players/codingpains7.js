@@ -8,7 +8,7 @@ var codingpains = {
   },
 
   ai: function(player, enemies, map) {
-    // if (canDie(player, enemies)) return codingpains._eluder(player, enemies, map);
+    if (logic.canDie(player, enemies)) return codingpains._eluder(player, enemies, map);
     if (player.ammo) return codingpains._hunter(player, enemies, map);
     return codingpains._gatherer(player, enemies, map);
   },
