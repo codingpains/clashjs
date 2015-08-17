@@ -16,7 +16,8 @@ var playerObjects = require('../Players.js');
 var playerArray = _.shuffle(_.map(playerObjects, el => el));
 
 var sudeenDeathCount = 0;
-
+var rounds = 0;
+var gusDeaths = 0;
 var Clash = React.createClass({
   mixins: [
     deepSetState
@@ -27,7 +28,7 @@ var Clash = React.createClass({
     return {
       clashjs: this.ClashJS.getState(),
       shoots: [],
-      speed: 50,
+      speed: 1,
       winners: playerArray.map(() => 0),
       rates: playerArray.map(() => 0),
       kills: null
@@ -39,6 +40,10 @@ var Clash = React.createClass({
   },
 
   newGame() {
+    rounds++;
+    if (rounds > 325) {
+      return false;
+    }
     this.ClashJS.getState().playerStates.forEach((player, index) => {
       if (player.isAlive) {
         let newWinners = this.state.winners;
@@ -68,7 +73,7 @@ var Clash = React.createClass({
       this.setState({
         clashjs: this.ClashJS.getState(),
         shoots: [],
-        speed: 50,
+        speed: 1,
         kills: null
       }, this.nextTurn);
     }, 1000);
@@ -79,7 +84,7 @@ var Clash = React.createClass({
       return el.isAlive ? (result + 1) : result;
     }, 0);
 
-    if (alivePlayerCount < 3) {
+    if (alivePlayerCount <= 3) {
       sudeenDeathCount++;
       if (sudeenDeathCount > 500) {
         console.error('You guys are just dancing, 500 turns with no winner, call this one a draw.');
@@ -120,12 +125,18 @@ var Clash = React.createClass({
 
     if (evt === 'KILL') {
       let players = this.ClashJS.getState().playerInstances;
+      let playerStates = this.ClashJS.getState().playerStates;
       let notification = [
         players[data.killer].getName(),
         'killed',
         _.map(data.killed, (index) => players[index].getName()).join(',')
-      ].join(' ')
-
+      ].join(' ');
+      var gus = _.filter(data.killed, (index) => players[index].getName() === 'Gus 7');
+      if (gus.length) {
+        gusDeaths++
+        console.log('Gus has died ' + gusDeaths + 'times');
+        console.log(playerStates[data.killer], playerStates[gus[0]]);
+      }
       this.setState({
         kills: notification
       });
