@@ -18,7 +18,6 @@ var codingpains = {
     var safestMove;
     var centerMove;
 
-    // codingpains.info.name = 'Gus 7 - gather';
     if (!map.ammoPosition.length) {
       centerMove = logic.goToCenter(player, map);
       if (logic.isMovementSafe(centerMove, player, enemies, map)) return centerMove;
@@ -42,9 +41,10 @@ var codingpains = {
     var chaseMove;
     var safestMove;
 
+    if (logic.canKillMany(player, enemies)) return 'shoot'
+
     enemies = logic.getDangerousEnemies(enemies);
 
-    // codingpains.info.name = "Gus 7 - hunt";
     if (utils.canKill(player, enemies)) return 'shoot';
 
     turnMove = logic.turnToAmbush(player, enemies);
@@ -63,7 +63,6 @@ var codingpains = {
   },
 
   _eluder : function(player, enemies, map) {
-    // codingpains.info.name = "Gus 7 - eluder";
     var killers = logic.getImmediateThreats(player, enemies);
 
     if (logic.canKillAll(player, killers)) {

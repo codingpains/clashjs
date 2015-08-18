@@ -43,7 +43,7 @@ var Clash = React.createClass({
 
   newGame() {
     rounds++;
-    if (rounds > 325) {
+    if (rounds > 31) {
       return false;
     }
     killsStack = [];

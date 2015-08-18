@@ -276,6 +276,12 @@ var turnToAmbush = function(player, enemies) {
     return 'north';
 };
 
+var canKillMany = function(player, enemies) {
+  let {position, direction} = player;
+  var targets = _.filter(enemies, (enemy) => utils.isVisible(position, enemy.position, direction));
+  return targets.length > 2;
+};
+
 var canKillAll = function(player, enemies) {
   if (!player.ammo) return false;
   var killable = enemies.filter((enemy) => utils.canKill(player, [enemy]));
@@ -295,6 +301,7 @@ var getDangerousEnemies = function(enemies) {
 
 module.exports = {
   canDie,
+  canKillMany,
   getClosestAmmo,
   getReachableAmmo,
   shouldMoveForAmmo,
