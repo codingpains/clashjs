@@ -121,7 +121,7 @@ var turnToKill = function(playerState, enemiesStates) {
 
 var codingpains = {
   info: {
-    name: 'Gus 1',
+    name: 'Old 1',
     style: 0
   },
   ai: (playerState, enemiesStates, gameEnvironment) => {
@@ -130,7 +130,6 @@ var codingpains = {
     var chaseMovement;
 
     if (playerState.ammo) {
-      codingpains.info.name = "Gus 1\n(ಠ益ಠ)";
       if (utils.canKill(playerState, enemiesStates)) return 'shoot';
 
       turnMovement = turnToKill(playerState, enemiesStates);
@@ -144,7 +143,7 @@ var codingpains = {
 
       return utils.safeRandomMove();
     }
-    codingpains.info.name = "Gus 1\n(・o･)";
+
     ammoMovement = shouldMoveForAmmo(playerState, gameEnvironment);
     if (ammoMovement) return ammoMovement;
 

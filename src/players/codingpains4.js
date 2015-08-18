@@ -169,7 +169,6 @@ var hunter = function(player, enemies, map) {
   var chaseMove;
   var safestMove;
 
-  codingpains.info.name = "Gus 4";
   if (utils.canKill(player, enemies)) return 'shoot';
 
   turnMove = turnToKill(player, enemies);
@@ -187,7 +186,6 @@ var hunter = function(player, enemies, map) {
 var gatherer = function(player, enemies, map) {
   var ammoMove;
   var safestMove;
-  codingpains.info.name = 'Gus 4';
 
   ammoMove = shouldMoveForAmmo(player, map);
   if (ammoMove && isMovementSafe(ammoMove, player, enemies, map)) return ammoMove;
@@ -202,8 +200,8 @@ var kills = 0;
 
 var codingpains = {
   info: {
-    name: 'Codingpains',
-    style: 0
+    name: 'Old 4',
+    style: 7
   },
   ai: function(player, enemies, map) {
     if (player.ammo) return hunter(player, enemies, map);
