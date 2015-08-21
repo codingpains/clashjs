@@ -10,6 +10,7 @@ class ClashJS {
       gridSize: 13,
       ammoPosition: []
     };
+    this._totalRounds = playerDefinitionArray.length * 10;
     this._rounds = 0;
     this._gameStats = currentStats || {};
     this._evtCallback = evtCallback;
@@ -72,6 +73,8 @@ class ClashJS {
     return {
       gameEnvironment: this._gameEnvironment,
       gameStats: this._gameStats,
+      rounds: this._rounds,
+      totalRounds: this._totalRounds,
       playerStates: this._playerStates,
       playerInstances: this._playerInstances
     };
@@ -128,7 +131,6 @@ class ClashJS {
         } else {
           stats.kdr = stats.kills;
         }
-        console.log(player.getName(), stats.kills, stats.deaths, stats.kdr);
       });
     }
     if (action === 'WIN') {
