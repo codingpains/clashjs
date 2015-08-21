@@ -16,8 +16,6 @@ var playerObjects = require('../Players.js');
 var playerArray = _.shuffle(_.map(playerObjects, el => el));
 
 var sudeenDeathCount = 0;
-var rounds = 0;
-var gusDeaths = 0;
 var killsStack = [];
 
 var Clash = React.createClass({
@@ -42,10 +40,6 @@ var Clash = React.createClass({
   },
 
   newGame() {
-    rounds++;
-    if (rounds > 31) {
-      return false;
-    }
     killsStack = [];
     let stats = this.ClashJS._gameStats;
     this.ClashJS.getState().playerStates.forEach((player, index) => {
