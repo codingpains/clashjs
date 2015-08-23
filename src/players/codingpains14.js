@@ -63,10 +63,7 @@ var isMovementSafe = function(action, playerState, enemiesStates) {
         break;
     }
   }
-  if (canDie(futureState, enemiesStates)) {
-    console.error("So fucking unsafe!");
-    return false;
-  }
+  if (canDie(futureState, enemiesStates)) return false;
   return true;
 };
 

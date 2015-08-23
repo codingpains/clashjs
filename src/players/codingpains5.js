@@ -66,7 +66,6 @@ var isMovementSafe = function(action, player, enemies, map) {
         }
         break;
       case DIRECTIONS[1]:
-        console.log(map.gridSize);
         if (futureState.position[1] < map.gridSize[1]) {
           futureState.position[1]++;
         }
@@ -82,10 +81,7 @@ var isMovementSafe = function(action, player, enemies, map) {
     }
   }
 
-  if (canDie(futureState, enemies)) {
-    console.error("So fucking unsafe!");
-    return false;
-  }
+  if (canDie(futureState, enemies)) return false;
   return true;
 };
 
