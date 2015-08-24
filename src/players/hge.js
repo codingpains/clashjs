@@ -3,7 +3,7 @@ var logic = require('./../lib/codingpains-logic');
 
 var codingpains = {
   info: {
-    name: 'Gus 7',
+    name: 'HGE-7',
     style: 8
   },
 
