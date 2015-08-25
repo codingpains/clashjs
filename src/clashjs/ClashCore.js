@@ -10,7 +10,7 @@ class ClashJS {
     this._rounds = 0;
     this._gameStats = currentStats || {};
     this._evtCallback = evtCallback;
-
+    this._alivePlayerCount = 0;
     this._playerInstances = playerDefinitionArray.map((playerDefinition) => {
       let player = new PlayerClass(playerDefinition);
       this._gameStats[player.getId()] = {
@@ -34,6 +34,7 @@ class ClashJS {
     };
     this._rounds++;
     this._playerInstances = _.shuffle(this._playerInstances);
+    this._alivePlayerCount = this._playerInstances.length;
     this._playerStates = this._playerInstances.map((playerInstance) => {
       let gridSize = this._gameEnvironment.gridSize;
       return {
@@ -72,7 +73,8 @@ class ClashJS {
       rounds: this._rounds,
       totalRounds: this._totalRounds,
       playerStates: this._playerStates,
-      playerInstances: this._playerInstances
+      playerInstances: this._playerInstances,
+      alivePlayerCount: this._alivePlayerCount
     };
   }
 
@@ -120,6 +122,7 @@ class ClashJS {
       _.forEach(this._playerInstances, (player) => {
         let stats = this._gameStats[player.getId()];
         if (killed.indexOf(player) > -1) {
+          this._alivePlayerCount--;
           stats.deaths++;
         }
         if (stats.deaths) {

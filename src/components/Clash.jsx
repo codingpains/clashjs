@@ -53,10 +53,7 @@ var Clash = React.createClass({
   },
 
   nextTurn() {
-    var {playerStates, rounds, totalRounds} = this.ClashJS.getState();
-    var alivePlayerCount = playerStates.reduce((result, el) => {
-      return el.isAlive ? (result + 1) : result;
-    }, 0);
+    var {playerStates, rounds, totalRounds, alivePlayerCount} = this.ClashJS.getState();
     if (alivePlayerCount < 2) return false;
     if (alivePlayerCount <= 3) {
       sudeenDeathCount++;
