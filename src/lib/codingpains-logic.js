@@ -1,9 +1,42 @@
 var utils = require('./utils.js');
 var DIRECTIONS = ['north', 'east', 'south', 'west'];
 
+var inDanger = function(player, enemies) {
+  if (!enemies.length) return false;
+  var pos = player.position;
+  return _.some(enemies, (e) => sameY(pos, e.position) || sameX(pos, e.position));
+};
+
+var sameY = function(start, end) {
+  return start[0] === end[0];
+};
+
+var sameX = function(start, end) {
+  return start[1] === end[1];
+};
+
+var canMoveTowards = function(direction, player, map) {
+  var canDo = false;
+  switch(direction) {
+    case 'north':
+      canDo = player.position[0] > 0;
+      break;
+    case 'east':
+      canDo = player.position[1] < map.gridSize;
+      break;
+    case 'south':
+      canDo = player.position[0] < map.gridSize - 1;
+      break;
+    case 'west':
+      canDo = player.position[1] > 0;
+      break;
+  }
+  return canDo;
+};
+
 var canDie = function(player, enemies) {
   return enemies.map(function(enemy) {
-    return enemy.ammo > 0 && utils.isVisible(enemy.position, player.position, enemy.direction)
+    return enemy.ammo > 0 && utils.isVisible(enemy.position, player.position, enemy.direction);
   }).filter(function(result) {
     return result === true;
   }).length > 0;
@@ -198,7 +231,7 @@ var opositeDirection = function(direction) {
     case 'north':
       ret = 'south';
       break;
-    case 'sorth':
+    case 'south':
       ret = 'north';
       break;
     case 'west':
@@ -300,7 +333,11 @@ var getDangerousEnemies = function(enemies) {
 };
 
 module.exports = {
+  inDanger,
+  sameY,
+  sameX,
   canDie,
+  canMoveTowards,
   canKillMany,
   getClosestAmmo,
   getReachableAmmo,
@@ -311,6 +348,8 @@ module.exports = {
   getClosestEnemy,
   getBackPosition,
   sneakyGetDirection,
+  isHorizontal,
+  isVertical,
   absVerticalDelta,
   absHorizontalDelta,
   opositeDirection,
